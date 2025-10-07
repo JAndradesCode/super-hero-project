@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "superName": "Spider-Man",
+    "realName": "Peter Parker",
+    "superpower": "Web-Slinging",
+    "powerLevel": 8,
+    "secretIdentity": true
+  }
+]
