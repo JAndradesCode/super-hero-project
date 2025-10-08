@@ -21,6 +21,7 @@ app.get("/", async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
 app.listen(PORT, () => {
   console.log(`App is serving UI listening on ${PORT}`);
 });
