@@ -1,6 +1,5 @@
 // frontend server-ui.js
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const express = require("express");

@@ -24,31 +24,13 @@
           </h2>
         </div>
         <div class="card-body">
-          <form id="hero-form">
-            <%- include('partials/form-input', superName) %> <%-
-            include('partials/form-input', realName) %> <%-
-            include('partials/form-input', superpower) %> <%-
-            include('partials/form-input', powerLevel) %>
-            <div class="mb-3 form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="secretIdentity"
-                name="secretIdentity"
-              />
-              <label class="form-check-label" for="secretIdentity">
-                Has Secret Identity
-              </label>
-            </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button type="reset" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-clockwise me-1"></i>Reset
-              </button>
-              <button type="submit" class="btn btn-primary">
-                <i class="bi bi-plus-circle me-1"></i>Add Hero
-              </button>
-            </div>
-          </form>
+          <form id="hero-form" action="/heroes" method="post">
+            <%- include('partials/form-input', {input: heroFields.superName}) %>
+            <%- include('partials/form-input', {input: heroFields.realName}) %>
+            <%- include('partials/form-input', {input: heroFields.superpower}) %>
+            <%- include('partials/form-input', {input: heroFields.powerLevel}) %>
+            <button type="submit" class="btn btn-primary">Create Hero</button>
+            </form>
         </div>
       </div>
     </div>
