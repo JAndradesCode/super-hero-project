@@ -14,9 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        //handle checkbox
-        submitData.secretIdentity = document.getElementById('secretIdentity').checked;
-
         try {
             const response = await fetch('/heros', {
                 method: 'POST',
