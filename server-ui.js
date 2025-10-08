@@ -17,7 +17,6 @@ app.set("view engine", "ejs");
 const PORT = 4000;
 
 // ----- DATA ROUTES ---- //
-
 // ---- GET ----//
 app.get("/", (req, res) => {
   res.redirect("/heroes");
