@@ -109,7 +109,7 @@ app.get("/heroes", authenticateToken, async (req, res) => {
 });
 app.get("/heroes/form", async (req, res) => {
   try {
-    res.render("heroForm.ejs");
+    res.render("heroForm.ejs", { heroFields });
   } catch (error) {
     console.warn("error reading console", error);
     res.status(500).json({ success: false, error: error.message });
