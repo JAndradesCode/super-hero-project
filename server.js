@@ -77,11 +77,6 @@ app.post("/admin/login", async (req, res) => {
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     });
-    // res.json({
-    // success: true,
-    // message: "Login successful",
-    // redirectTo: "/",
-    // });
     res.redirect("/");
   } catch (error) {
     console.error("error");

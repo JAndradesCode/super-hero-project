@@ -15,7 +15,52 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 const PORT = 4000;
-
+// ----- TOKEN FUNCTIONS ----- //
+function authenticateToken(req, res, next) {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.redirect("/admin/login");
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      res.clearCookie("token");
+      return res.redirect("/admin/login");
+    }
+    req.user = user;
+    next();
+  });
+}
+// --- TOKEN routes ---- //
+// ----- admin routes ----- //
+app.get("/admin/login", (req, res) => {
+  res.render("adminLogin");
+});
+app.post("/admin/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    // create JTW
+    const token = jwt.sign(
+      {
+        username: username,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "24h",
+      }
+    );
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    });
+    // res.json({
+    // success: true,
+    // message: "Login successful",
+    // redirectTo: "/",
+    // });
+    res.redirect("/");
+  } catch (error) {}
+});
 // ----- DATA ROUTES ---- //
 // ---- GET ----//
 app.get("/", (req, res) => {
