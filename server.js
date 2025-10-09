@@ -118,9 +118,15 @@ app.get("/heroes/form", async (req, res) => {
 app.post("/heroes", async (req, res) => {
   try {
     const heroes = await readHeroes();
+
     const newHero = {
       id: Date.now().toString(),
       superName: req.body.superName,
+      realName: req.body.realName,
+      superpower: req.body.superpower,
+      powerLevel: parseInt(req.body.powerLevel),
+      secretIdentity: req.body.secretIdentity === "true",
+      createdAt: new Date().toISOString(),
     };
     heroes.push(newHero);
     await writeHeroes(heroes);

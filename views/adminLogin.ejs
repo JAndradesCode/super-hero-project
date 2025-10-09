@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
     <title>Admin Login</title>
 </head>
-<body>
 
+<body>
+    <h2>Admin Login</h2>
+    <form id="login-form" action="/admin/login" method="post">
+        <label for="username">Username <input type="text" id="username" name="username" required /></label>
+        <label for="password">Password:<input type="password" id="password" name="password" required /></label>
+        <button type="submit">Submit</button>
+    </form>
 </body>
+
 </html>
