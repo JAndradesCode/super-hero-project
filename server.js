@@ -15,10 +15,11 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 const PORT = 4000;
 
-const heroFields = require("./config/heroInputs.config.js");
 app.get("/", (req, res) => {
-  res.render("heroForm", { heroFields });
+  const heroFields = require("./config/heroInputs.config.js");
+  res.render("heroForm", { input: heroFields });
 });
+
 // ----- read/write file functions ------- //
 async function readHeroes() {
   try {
@@ -88,9 +89,6 @@ app.post("/admin/login", async (req, res) => {
 });
 // ----- DATA ROUTES ---- //
 // ---- GET ----//
-app.get("/", (req, res) => {
-  res.redirect("/heroes");
-});
 app.get("/heroes", authenticateToken, async (req, res) => {
   try {
     const heroes = await readHeroes();
