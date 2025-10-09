@@ -137,6 +137,53 @@ app.post("/heroes", async (req, res) => {
     console.warn("warning");
   }
 });
+app.get("/heroes", async (req, res) => {
+  try {
+    const heroes = await readHeroes();
+    if (req.accepts("html")) {
+      res.render("heroList", { heroes });
+    } else {
+      res.json({ success: true, count: heroes.length, data: heroes });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+app.put("/heroes/:id", async (req, res) => {
+  try {
+    const heroes = await readHeroes();
+    const heroIndex = heroes.findIndex((h) => h.id === req.params.id);
+    if (heroIndex === -1) {
+      return res.status(404).json({ success: false, error: "Hero not found" });
+    }
+    heroes[heroIndex] = {
+      ...heroes[heroIndex],
+      superName: req.body.superName,
+      realName: req.body.realName,
+      superpower: req.body.superpower,
+      powerLevel: parseInt(req.body.powerLevel),
+      secretIdentity: req.body.secretIdentity === "true",
+      updatedAt: new Date().toISOString(),
+    };
+    await writeHeroes(heroes);
+    res.json({ success: true, data: heroes[heroIndex] });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+app.delete("/heroes/:id", async (req, res) => {
+  try {
+    const heroes = await readHeroes();
+    const filteredHeroes = heroes.filter((h) => h.id !== req.params.id);
+    if (heroes.length === filteredHeroes.length) {
+      return res.status(404).json({ success: false, error: "Hero not found" });
+    }
+    await writeHeroes(filteredHeroes);
+    res.json({ success: true, message: "Hero deleted" });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 app.listen(PORT, () => {
   console.log(`App is serving UI listening on ${PORT}`);
 });
