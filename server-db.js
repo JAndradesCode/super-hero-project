@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
-const PORT = 3000;
+const PORT = 4000;
 // read, write functions
 async function readHeroes() {
 	try {
