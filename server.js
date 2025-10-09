@@ -184,6 +184,10 @@ app.delete("/heroes/:id", async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+app.get("/", (req, res) => {
+  const heroFields = require("./config/heroInputs.config.js");
+  res.render("heroForm", heroFields);
+});
 app.listen(PORT, () => {
   console.log(`App is serving UI listening on ${PORT}`);
 });
